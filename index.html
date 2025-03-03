@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('C:/Users/User/Desktop/тётё Маё/assets/background.jpg');
+        background-size: cover;
+    }
+    section{
+        padding: 200px;
+    }
+    .glass {
+        width: 350px;
+        height: 250px;
+        background: rgba(255, 255, 255, 0.15); /* Уменьшенная прозрачность */
+        border-radius: 20px;
+        backdrop-filter: blur(15px); /* Более сильное размытие */
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Более заметная тень */
+        padding: 20px;
+        color: white;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+</style>
+<body>
+    <header style="height: 100vh; padding: 300px; position: relative; z-index: 1000; background-color: red;">
+        <nav style="position: absolute; top: 0; left: 0; width: 100%; padding: 20px; z-index: 1001;">
+            <div style="display: flex; justify-content: space-around; align-items: center; padding: 30px;">
+                <a href="#home">Главная</a>
+                <a href="#about">О нас</a>
+                <a href="#contact">Контакты</a>
+            </div>
+        </nav>
+
+        <div>
+            <div class="background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('assets/header/background.png'); background-size: cover; background-position: center; background-repeat: no-repeat; z-index: 1000;">
+            </div>
+            <div class="middleground" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('assets/header/middleground.png'); background-size: cover; background-position: center; background-repeat: no-repeat; z-index: 1002;">
+            </div>
+            <div class="foreground" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('assets/header/foreground.png'); background-size: cover; background-position: center; background-repeat: no-repeat; z-index: 1003;">
+            </div>
+            <div id="glassDiv" style="display: flex; justify-content: center;">
+                <div class="glass" style="position: absolute; border-radius: 20px; padding: 10px; backdrop-filter: blur(15px); text-align: center; z-index: 1001;">
+                    <h1>Байтал</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+            window.addEventListener('scroll', function() {
+                let scrollPosition = window.scrollY;
+                document.querySelector('.background').style.transform = `translateY(${scrollPosition * -0.1}px)`;
+                document.querySelector('.glass').style.transform = `translateY(${scrollPosition * 0.3}px)`;
+                document.querySelector('.middleground').style.transform = `translateY(${scrollPosition * -0.22}px)`;
+                document.querySelector('.foreground').style.transform = `translateY(${scrollPosition * -0.4}px)`; // Увеличено значение для движения переднего плана
+            });
+        </script>
+    </header>
+
+
+    <main>
+        <div id="container3D"></div>
+    </main>
+    <script type="module" src="js/main.js"></script>
+    
+    
+    
+    <section style="display: flex; justify-content: space-between; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; background-color: blue;">
+        <div style="flex: 1;">
+            <h1>models</h1>
+        </div>
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <button id="prev" style="background-image: url('https://www.shutterstock.com/image-vector/arrow-vector-icon-scroll-down-260nw-1096983188.jpg'); background-size: cover; width: 50px; height: 50px;"></button>
+            <div id="card-container" style="margin: 10px; border: 1px solid black; padding: 10px; border-radius: 10px; display: flex; flex-direction: column; width: 50vw; height: 50vh;">
+                <img id="card-image" src="image1.png" alt="" style="width: 100%; height: 100%;">
+                <p id="card-text" style="font-size: 24px;">Карточка 1</p>
+            </div>
+            <button id="next" style="background-image: url('https://www.shutterstock.com/image-vector/arrow-vector-icon-scroll-down-260nw-1096983188.jpg'); background-size: cover; width: 50px; height: 50px; transform: rotate(180deg);"></button>
+        </div>
+    </section>
+    <script>
+        let currentCard = 1;
+        const cards = [
+            { image: "image1.png", text: "Карточка 1" },
+            { image: "image2.png", text: "Карточка 2" },
+            { image: "image3.png", text: "Карточка 3" },
+            { image: "image4.png", text: "Карточка 4" },
+            { image: "image5.png", text: "Карточка 5" },
+            { image: "image6.png", text: "Карточка 6" },
+        ];
+
+        document.getElementById("prev").addEventListener("click", () => {
+            if (currentCard > 1) {
+                currentCard--;
+                updateCard();
+            }
+        });
+
+        document.getElementById("next").addEventListener("click", () => {
+            if (currentCard < cards.length) {
+                currentCard++;
+                updateCard();
+            } else {
+                currentCard = 1;
+                updateCard();
+            }
+        });
+
+        function updateCard() {
+            document.getElementById("card-image").src = cards[currentCard - 1].image;
+            document.getElementById("card-text").textContent = cards[currentCard - 1].text;
+        }
+
+        window.addEventListener('scroll', function() {
+            let section = document.querySelector('section');
+            let scrollPosition = window.scrollY;
+            let sectionTop = section.offsetTop;
+            let sectionHeight = section.offsetHeight;
+            let windowHeight = window.innerHeight;
+            let checkPoint = sectionTop + sectionHeight - windowHeight;
+
+            if (scrollPosition > checkPoint) {
+                section.style.opacity = '1';
+                section.style.transform = 'translateY(0)';
+            } else {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+            }
+        });
+    </script>
+    <section>
+
+
+        
+        <div style="display: flex; justify-content: center; gap: 100px;">
+            <img style="width: 50%;" src="https://www.animalleague.org/wp-content/uploads/2022/02/feature-beth-blog-feb2022.jpg">
+            <div style="width: 50%;">
+                <h1>Text</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h1 style="text-align: center;">We love our customers blah blah</h1>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+            <div style="background-color: lightgrey; width: 300px; border-radius: 30px;">
+                <img src="">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div style="background-color: lightgrey; width: 300px; border-radius: 30px;">
+                <img src="">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div style="background-color: lightgrey; width: 300px; border-radius: 30px;">
+                <img src="">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div style="background-color: lightgrey; width: 300px; border-radius: 30px;">
+                <img src="">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </div>
+    </section>
+    <section style="padding: 0px; ">
+        <h1 style="text-align: center;">We love our customers blah blah</h1>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr);">
+            <div style="background-color: lightgrey; width: 300px;">
+                <img src="">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div style="background-color: lightgrey; width: 300px; border-radius: 30px;">
+                <img src="">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div style="background-color: lightgrey; width: 300px; border-radius: 30px;">
+                <img src="">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div style="background-color: lightgrey; width: 300px; border-radius: 30px;">
+                <img src="">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </div>
+    </section>
+    <footer style="padding: 200px;">
+        <h1 style="text-align: center;">Thankyou и подобное</h1>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 200px;">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+    </footer>
+</body>
+</html>
